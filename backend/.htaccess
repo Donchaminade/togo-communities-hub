@@ -1,5 +1,19 @@
-# Securite : le document root doit etre public/ uniquement.
-# Si ce dossier est expose par erreur, tout acces HTTP est bloque.
-<IfModule mod_authz_core.c>
-    Require all denied
+# Document root ideal : public/
+# Fallback si Hostinger pointe sur le dossier parent (tch/ au lieu de tch/public/).
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Bloquer l'acces direct aux dossiers sensibles.
+    RewriteRule ^(database|config|src|storage)(/|$) - [F,L]
+
+    # Router toutes les requetes vers public/.
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>
+
+<Files ".env">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+</Files>
