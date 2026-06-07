@@ -96,12 +96,6 @@ export default function Login() {
           Créer un espace lead
         </Link>
       </p>
-
-      <div className="mt-6 rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-4 text-xs text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-400">
-        <p className="font-semibold text-slate-600 dark:text-slate-300">Comptes de démonstration</p>
-        <p className="mt-1">Admin : chaminade.dondah.adjolou@gmail.com / Admin@1234</p>
-        <p>Lead : lead.demo@tch.tg / Lead@1234</p>
-      </div>
     </AuthShell>
   );
 }
