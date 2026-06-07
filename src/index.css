@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+@theme {
+  --color-togo-green: #006a4e;
+  --color-togo-red: #d21034;
+  --color-togo-yellow: #ffce00;
+  --color-togo-green-dark: #00503b;
+  --color-togo-red-dark: #b00c25;
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 8s linear infinite;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
