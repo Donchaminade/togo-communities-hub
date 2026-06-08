@@ -582,7 +582,15 @@ final class AdminController
             );
         }
 
-        $db->prepare('DELETE FROM users WHERE id = :id')->execute(['id' => $id]);
+        try {
+            $del = $db->prepare('DELETE FROM users WHERE id = :id');
+            $del->execute(['id' => $id]);
+            if ($del->rowCount() === 0) {
+                Response::error('Suppression impossible : utilisateur introuvable.', 404);
+            }
+        } catch (\PDOException $e) {
+            Response::error('Suppression impossible : des donnees liees bloquent la suppression.', 422);
+        }
 
         Response::success(null, 'Utilisateur supprime definitivement.');
     }

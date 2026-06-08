@@ -51,12 +51,19 @@ async function request<T>(
   path: string,
   options: { method?: string; body?: unknown; auth?: boolean } = {},
 ): Promise<ApiEnvelope<T>> {
-  const { method = 'GET', body, auth = false } = options;
+  let method = (options.method ?? 'GET').toUpperCase();
+  const { body, auth = false } = options;
 
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   };
+
+  // Hostinger / Apache : PUT, PATCH et DELETE passent en POST + override.
+  if (method === 'PUT' || method === 'PATCH' || method === 'DELETE') {
+    headers['X-HTTP-Method-Override'] = method;
+    method = 'POST';
+  }
 
   if (auth) {
     const token = tokenStore.get();

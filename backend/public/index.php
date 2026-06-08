@@ -15,6 +15,7 @@ use TCH\Controllers\SupportController;
 use TCH\Controllers\UploadController;
 use TCH\Response;
 use TCH\Router;
+use TCH\HttpMethod;
 
 require_once dirname(__DIR__) . '/src/bootstrap.php';
 
@@ -63,7 +64,7 @@ if ($allowedOrigins === []) {
 
 header('Access-Control-Allow-Origin: ' . $allowOrigin);
 header('Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
+header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, X-HTTP-Method-Override');
 header('Access-Control-Allow-Credentials: true');
 header('Vary: Origin');
 
@@ -179,6 +180,6 @@ $router->get('/admin/reports/{id}/evidence/{index}', [$reports, 'adminEvidence']
 /* Dispatch                                                            */
 /* ------------------------------------------------------------------ */
 $router->dispatch(
-    $_SERVER['REQUEST_METHOD'] ?? 'GET',
+    HttpMethod::resolve(),
     $_SERVER['REQUEST_URI'] ?? '/'
 );
