@@ -1,22 +1,19 @@
 import { Check, Copy, Share2 } from 'lucide-react';
 import { useState } from 'react';
 import { SHARE_NETWORKS, communityShareText, communityShareUrl, copyToClipboard, type ShareableCommunity } from '../../lib/share';
+import ShareNetworkIcon, { SHARE_HOVER_STYLES } from '../ui/ShareNetworkIcon';
 import { useToast } from '../ui/Toast';
 
 interface CommunityShareSidebarProps {
   community: ShareableCommunity;
 }
 
-const NETWORK_SHORT: Record<string, string> = {
-  x: '𝕏',
-  facebook: 'f',
-  linkedin: 'in',
-  whatsapp: 'WA',
-};
-
 const COMPACT_NETWORKS = SHARE_NETWORKS.filter((n) =>
   ['x', 'facebook', 'linkedin', 'whatsapp'].includes(n.id),
 );
+
+const BASE_BTN =
+  'group grid h-10 place-items-center rounded-xl border border-slate-200 bg-slate-50 text-slate-500 transition-all duration-200 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300';
 
 export default function CommunityShareSidebar({ community }: CommunityShareSidebarProps) {
   const { notify } = useToast();
@@ -53,9 +50,9 @@ export default function CommunityShareSidebar({ community }: CommunityShareSideb
             rel="noreferrer noopener"
             title={network.label}
             aria-label={`Partager sur ${network.label}`}
-            className="grid h-10 place-items-center rounded-xl border border-slate-200 bg-slate-50 text-xs font-bold text-slate-600 transition-colors hover:border-slate-300 hover:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+            className={`${BASE_BTN} ${SHARE_HOVER_STYLES[network.id]}`}
           >
-            {NETWORK_SHORT[network.id] ?? network.label.charAt(0)}
+            <ShareNetworkIcon network={network.id} className="h-[18px] w-[18px]" />
           </a>
         ))}
         <button
@@ -63,9 +60,9 @@ export default function CommunityShareSidebar({ community }: CommunityShareSideb
           onClick={handleCopy}
           title="Copier le lien"
           aria-label="Copier le lien"
-          className="grid h-10 place-items-center rounded-xl border border-slate-200 bg-slate-50 text-slate-600 transition-colors hover:border-slate-300 hover:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+          className={`${BASE_BTN} hover:border-emerald-500 hover:bg-emerald-500 hover:text-white`}
         >
-          {copied ? <Check className="h-4 w-4 text-emerald-600" /> : <Copy className="h-4 w-4" />}
+          {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
         </button>
       </div>
     </div>

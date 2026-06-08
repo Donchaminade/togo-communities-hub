@@ -10,6 +10,7 @@ import {
   copyToClipboard,
   type ShareableCommunity,
 } from '../../lib/share';
+import ShareNetworkIcon from './ShareNetworkIcon';
 
 interface ShareCommunityButtonProps {
   community: ShareableCommunity;
@@ -164,6 +165,7 @@ export default function ShareCommunityButton({
                         onClick={() => setOpen(false)}
                         className={`flex items-center justify-center gap-2 rounded-xl px-3 py-3 text-xs font-bold text-white transition-colors ${network.color}`}
                       >
+                        <ShareNetworkIcon network={network.id} className="h-4 w-4 shrink-0" />
                         {network.label}
                       </a>
                     ))}
