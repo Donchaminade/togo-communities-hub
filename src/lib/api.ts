@@ -20,8 +20,7 @@ import type {
   ReportTrackInfo,
 } from '../types';
 
-const API_BASE_URL =
-  (import.meta as any).env?.VITE_API_URL || 'http://localhost:8000';
+import { API_BASE_URL } from './apiBase';
 
 const TOKEN_KEY = 'tch_token';
 
@@ -73,7 +72,7 @@ async function request<T>(
     });
   } catch (e) {
     throw new ApiError(
-      "Impossible de joindre le serveur. Verifiez que l'API est demarree.",
+      `Impossible de joindre l'API (${API_BASE_URL}). Verifiez que le serveur est demarre ou que VITE_API_URL est correct.`,
       0,
     );
   }
@@ -112,7 +111,10 @@ async function uploadRequest<T>(path: string, file: File): Promise<ApiEnvelope<T
       body: formData,
     });
   } catch {
-    throw new ApiError("Impossible de joindre le serveur. Verifiez que l'API est demarree.", 0);
+    throw new ApiError(
+      `Impossible de joindre l'API (${API_BASE_URL}). Verifiez que le serveur est demarre ou que VITE_API_URL est correct.`,
+      0,
+    );
   }
 
   let payload: ApiEnvelope<T> | null = null;

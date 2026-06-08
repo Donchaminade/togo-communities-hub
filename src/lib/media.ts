@@ -1,5 +1,4 @@
-const API_BASE_URL =
-  (import.meta as any).env?.VITE_API_URL || 'http://localhost:8000';
+import { API_BASE_URL } from './apiBase';
 
 /** URL absolue pour les fichiers stockés sur l'API (/uploads/...) ou assets statiques frontend (/diapo/...). */
 export function mediaUrl(path?: string | null): string {
