@@ -136,9 +136,9 @@ export default function CommunityEventsManager({ community, onClose, inline = fa
 
   const content = (
     <>
-      <div className={`flex items-center justify-between ${inline ? 'mb-6' : 'border-b border-slate-200 px-6 py-4 dark:border-slate-800'}`}>
+      <div className={`flex items-center justify-between ${inline ? 'mb-5' : 'border-b border-slate-200 px-6 py-4 dark:border-slate-800'}`}>
         <div>
-          <h2 className="text-lg font-black text-slate-900 dark:text-white">Calendrier événementiel</h2>
+          <h2 className="text-lg font-black text-slate-900 dark:text-white">Événements de l&apos;année</h2>
           <p className="text-sm text-slate-500 dark:text-slate-400">{community.name}</p>
         </div>
         {!inline && onClose && (
@@ -260,7 +260,11 @@ export default function CommunityEventsManager({ community, onClose, inline = fa
   );
 
   if (inline) {
-    return <div className="max-w-2xl rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">{content}</div>;
+    return (
+      <div className="w-full max-w-4xl rounded-2xl border border-slate-200 bg-white p-5 sm:p-6 dark:border-slate-800 dark:bg-slate-900">
+        {content}
+      </div>
+    );
   }
 
   return (
